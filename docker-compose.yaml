@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  albumviewer:
+    image: emaram/albumviewer:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - target: 80
+        published: 80
+    environment:
+      - "Data:Provider=MySQL"
+      - "Data:ConnectionString=Server=dbcontainer;Port=4000;Database=AlbumViewer;User=root;SslMode=None"
+
+
+  dbcontainer:
+    image: dockersamples/tidb:nanoserver-sac2016
+    ports:
+      - "3306:4000"
+  
